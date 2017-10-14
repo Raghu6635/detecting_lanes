@@ -23,12 +23,15 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+The pipeline has 3 major steps. First step is to detect the edges in the image using canny edge detection.
+The image is converted to grayscale and smoothed using Gaussian filter before applying canny edge detection.
+Second step is to create a four-sided polygon edges to mask out the edges in the area of interest from 
+the detected canny edges. Third step is to get lines from edges using hough transform and draw the lines.
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
+Since output of cv2.HoughLinesP are the points corresponding to staright lines, I modified the draw lines 
+function to get points corresponding to positive slope between 30 and 60, and negative slope between -30 and -60.
+Using these values I used np.polyfit to fit straight lines to these points one for negative slope and one for
+positive slope. 
 ![alt text][image1]
 
 
